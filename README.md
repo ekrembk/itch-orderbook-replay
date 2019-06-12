@@ -1,4 +1,4 @@
-# ITCH Order Book Replay
+# ITCH Order Book Replay
 
 Limit order book replay UI using React for ITCH feeds.
 
