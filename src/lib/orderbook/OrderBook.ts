@@ -1,24 +1,29 @@
 import Order from "./Order";
 import OrderType from "./OrderType";
-import { OrderExistsException } from "./Exceptions";
 import Side from "./Side";
+import Level from "./Level";
 
 export class OrderBook {
-    bidSide = new Side(OrderType.Buy);
-    askSide = new Side(OrderType.Sell);
-
+    constructor(public bidSide: Side, public askSide: Side) {}
+    
     public add(order: Order) {
+        return this.getLevel(order).add(order);
+    }
+
+    public delete(order: Order) {
+        return this.getLevel(order).delete(order);
+    }
+
+    public replace(order: Order) {
+        return this.getLevel(order).replace(order);
+    }
+
+    private getLevel(order: Order): Level {
         const side = order.type === OrderType.Buy
             ? this.bidSide
             : this.askSide;
 
-        const level = side.getOrCreateLevel(order.price);
-
-        if (level.orders.has(order.id)) {
-            throw new OrderExistsException(order.id);
-        }
-
-        level.orders.set(order.id, order);
+        return side.getOrCreateLevel(order.price);
     }
 }
 
