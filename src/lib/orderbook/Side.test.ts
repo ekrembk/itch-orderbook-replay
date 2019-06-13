@@ -14,15 +14,19 @@ it('creates a new level when necessary', () => {
     expect(side.getOrCreateLevel(100)).toBe(level100);
 });
 
-it('returns best levels correctly', () => {
+it('returns best bid level correctly', () => {
     expect(side.best()).toBeUndefined();
     side.getOrCreateLevel(100);
+    side.getOrCreateLevel(102);
     side.getOrCreateLevel(101);
-    expect(side.best()!.price).toBe(101);
+    expect(side.best()!.price).toBe(102);
 });
 
-it('reverse sort works correctly', () => {
-    expect(side.reverseCompare(1, 2)).toBe(1);
-    expect(side.reverseCompare(2, 1)).toBe(-1);
-    expect(side.reverseCompare(1, 1)).toBe(0);
+it('returns best ask level correctly', () => {
+    const askSide = new Side(OrderType.Sell);
+    expect(askSide.best()).toBeUndefined();
+    askSide.getOrCreateLevel(105);
+    askSide.getOrCreateLevel(102);
+    askSide.getOrCreateLevel(103);
+    expect(askSide.best()!.price).toBe(102);
 });

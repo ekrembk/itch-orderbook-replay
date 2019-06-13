@@ -1,14 +1,23 @@
 import Level from "./Level";
 import OrderType from "./OrderType";
 
-export class Side {
-    levels: Map<number, Level> = new Map<number, Level>();
+const SortedMap = require("collections/sorted-map");
 
-    constructor(private type: OrderType) { }
+export class Side {
+    levels: any;
+
+    constructor(private type: OrderType) {
+        const equals = (a: number, b: number) => a === b;
+        const compareFn = type === OrderType.Buy
+            ? (a: number, b: number) => b - a
+            : (a: number, b: number) => a - b;
+
+        this.levels = new SortedMap({}, equals, compareFn);
+    }
 
     public best(): Level | undefined {
-        return this.levels.size > 0
-            ? this.levels.values().next().value
+        return this.levels.length > 0
+            ? this.levels.sorted()[0]
             : undefined;
     }
 
@@ -21,12 +30,6 @@ export class Side {
         this.levels.set(price, newLevel);
 
         return newLevel;
-    }
-
-    public reverseCompare(a: number, b: number) {
-        return a > b
-            ? -1
-            : (a < b ? 1 : 0);
     }
 }
 
