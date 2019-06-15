@@ -36,6 +36,25 @@ it('handles replaces', () => {
     expect(askSide.getOrCreateLevel(101).quantity).toBe(updatedSellOrder.quantity);
 });
 
+it('handles executions', () => {
+    const buyOrder = new Order("buy id", OrderType.Buy, 100, 10);
+    const executedBuyOrder = new Order("buy id", OrderType.Buy, 100, 1);
+
+    book.add(buyOrder);
+    book.execute(executedBuyOrder);
+    expect(bidSide.getOrCreateLevel(100).quantity).toBe(buyOrder.quantity - executedBuyOrder.quantity);
+});
+
+it('handles replaces with price updates', () => {
+    const buyOrder = new Order("buy id", OrderType.Buy, 100, 1);
+    const updatedBuyOrder = new Order("buy id", OrderType.Buy, 101, 10);
+
+    book.add(buyOrder);
+    book.replace(updatedBuyOrder);
+    expect(bidSide.getOrCreateLevel(100).quantity).toBe(0);
+    expect(bidSide.getOrCreateLevel(101).quantity).toBe(10);
+});
+
 it('handles deletes', () => {
     const buyOrder = new Order("buy id", OrderType.Buy, 100, 10);
     const SecondBuyOrder = new Order("buy id 2", OrderType.Buy, 100, 1);
