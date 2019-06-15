@@ -5,7 +5,10 @@ import Side from "./lib/orderbook/Side";
 import OrderType from "./lib/orderbook/OrderType";
 import ITCHForm from  "./components/ITCHForm/ITCHForm";
 import Order from "./lib/orderbook/Order";
+import JsonSource from "./lib/injector/JsonSource";
+import sampleData from "./lib/injector/sample.json";
 
+const source = new JsonSource(sampleData);
 const bidSide = new Side(OrderType.Buy);
 const askSide = new Side(OrderType.Sell);
 
@@ -17,6 +20,11 @@ const App: React.FC = () => {
     setBook(new OrderBook(bidSide, askSide));
   };
 
+  const addFromDataSource = () => {
+    const dataPoint = source.next();
+    onCreate(dataPoint.method, dataPoint.order);
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -24,6 +32,7 @@ const App: React.FC = () => {
           <OrderBookComponent orderbook={book} />
         </div>
         <div className="col-4">
+          <button onClick={addFromDataSource}>Next ></button>
           <ITCHForm onCreate={onCreate} />
         </div>
       </div>
