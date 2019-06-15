@@ -18,9 +18,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="level">
+    <div className="row">
+      <div className="col-4">
         <OrderBookComponent orderbook={book} />
+      </div>
+      <div className="col-4">
         <ITCHForm onCreate={onCreate} />
+      </div>
     </div>
   );
 };

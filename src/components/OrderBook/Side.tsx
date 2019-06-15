@@ -3,6 +3,7 @@ import Side from "../../lib/orderbook/Side";
 import Level from "../../lib/orderbook/Level";
 import LevelComponent from "./Level";
 import OrderType from "../../lib/orderbook/OrderType";
+import "./side.css";
 
 interface Props {
     side: Side

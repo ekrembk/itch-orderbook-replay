@@ -21,9 +21,9 @@ function createOrderFromInput(id: string, type: string, price: number, quantity:
 }
 
 const FormInput: React.FC<FormInputProps> = ({ label, value, setValue }) => (
-    <div>
+    <div className="form-group">
         <label>{label}</label>
-        <input type="text" value={value} onChange={event => setValue(event.target.value)} />
+        <input className="form-control" type="text" value={value} onChange={event => setValue(event.target.value)} />
     </div>
 );
 
