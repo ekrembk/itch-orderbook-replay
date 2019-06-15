@@ -6,7 +6,7 @@ const SortedMap = require("collections/sorted-map");
 export class Side {
     levels: any;
 
-    constructor(private type: OrderType) {
+    constructor(public type: OrderType) {
         const equals = (a: number, b: number) => a === b;
         const compareFn = type === OrderType.Buy
             ? (a: number, b: number) => b - a
