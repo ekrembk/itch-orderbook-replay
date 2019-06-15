@@ -29,6 +29,18 @@ export class Level {
         this.quantity += order.quantity - currentQuantity;
     }
 
+    execute(order: Order) {
+        if (!this.orders.has(order.id)) {
+            throw new OrderDoesNotExistException(order.id);
+        }
+
+        const executedQuantity = order.quantity;
+        const currentOrder = this.orders.get(order.id)!;
+        currentOrder.quantity -= executedQuantity;
+        
+        this.quantity -= executedQuantity;
+    }
+
     delete(order: Order) {
         if (!this.orders.has(order.id)) {
             throw new OrderDoesNotExistException(order.id);

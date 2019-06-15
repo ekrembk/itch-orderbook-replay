@@ -37,3 +37,7 @@ it('does not allow deleting non-existing order', () => {
 it('does not allow replacing non-existing order', () => {
     expect(() => level.replace(new Order("id", OrderType.Buy, 100, 2))).toThrow(OrderDoesNotExistException);
 });
+
+it('does not allow executing non-existing order', () => {
+    expect(() => level.execute(new Order("id", OrderType.Buy, 100, 2))).toThrow(OrderDoesNotExistException);
+});

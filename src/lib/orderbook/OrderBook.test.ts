@@ -42,7 +42,7 @@ it('handles executions', () => {
 
     book.add(buyOrder);
     book.execute(executedBuyOrder);
-    expect(bidSide.getOrCreateLevel(100).quantity).toBe(buyOrder.quantity - executedBuyOrder.quantity);
+    expect(bidSide.getOrCreateLevel(100).quantity).toBe(9);
 });
 
 it('handles replaces with price updates', () => {

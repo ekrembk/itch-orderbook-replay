@@ -18,6 +18,10 @@ export class OrderBook {
         return this.getLevel(order).replace(order);
     }
 
+    public execute(order: Order) {
+        return this.getLevel(order).execute(order);
+    }
+
     private getLevel(order: Order): Level {
         const side = order.type === OrderType.Buy
             ? this.bidSide
