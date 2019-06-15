@@ -33,10 +33,13 @@ const ITCHForm: React.FC<Props> = ({ onCreate }) => {
     const [type, setType] = useState("buy");
     const [price, setPrice] = useState("100");
     const [quantity, setQuantity] = useState("1");
+    const [counter, setCounter] = useState(1);
 
     const onSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         onCreate(method, createOrderFromInput(id, type, parseInt(price), parseInt(quantity)));
+        setCounter(counter + 1);
+        setId('id' + counter);
     }
 
     return (

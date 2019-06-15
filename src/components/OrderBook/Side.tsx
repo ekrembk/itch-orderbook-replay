@@ -19,7 +19,12 @@ const SideComponent: React.FC<Props> = ({ side }) => {
                 {type === OrderType.Sell && <tr><th>Ask</th><th>Lot</th><th>Orders</th></tr>}
             </thead>
             <tbody>
-                {levels.map((level: Level) => <LevelComponent key={level.price} level={level} type={type} />)}
+                {levels.map((level: Level) => <LevelComponent 
+                    key={level.price}
+                    size={level.orders.size}
+                    quantity={level.quantity}
+                    price={level.price}
+                    type={type} />)}
             </tbody>
         </table>
     );

@@ -1,20 +1,19 @@
 import React from "react";
-import Level from "../../lib/orderbook/Level";
 import OrderType from "../../lib/orderbook/OrderType";
 
 interface Props {
-    level: Level;
+    size: number;
+    quantity: number;
+    price: number;
     type: OrderType;
 }
 
-const LevelComponent: React.FC<Props> = ({ level, type }) => {
-    console.log("Level render", level.price);
-
+const LevelComponent: React.FC<Props> = ({ size, quantity, price, type }) => {
     if (type === OrderType.Buy) {
-        return <tr><td>{level.orders.size}</td><td>{level.quantity}</td><td>{(level.price / 100).toFixed(2)}</td></tr>
+        return <tr><td>{size}</td><td>{quantity}</td><td>{(price / 100).toFixed(2)}</td></tr>
     }
 
-    return <tr><td>{(level.price / 100).toFixed(2)}</td><td>{level.quantity}</td><td>{level.orders.size}</td></tr>
+    return <tr><td>{(price / 100).toFixed(2)}</td><td>{quantity}</td><td>{size}</td></tr>
 };
 
 export default LevelComponent;
