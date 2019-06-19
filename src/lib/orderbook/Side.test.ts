@@ -1,11 +1,10 @@
 import Side from './Side';
 import Level from './Level';
-import OrderType from './OrderType';
 
 let side: Side;
 
 // Setup
-beforeEach(() => side = new Side(OrderType.Buy));
+beforeEach(() => side = new Side("buy"));
 
 it('creates a new level when necessary', () => {
     const level100 = side.getOrCreateLevel(100);
@@ -23,7 +22,7 @@ it('returns best bid level correctly', () => {
 });
 
 it('returns best ask level correctly', () => {
-    const askSide = new Side(OrderType.Sell);
+    const askSide = new Side("sell");
     expect(askSide.best()).toBeUndefined();
     askSide.getOrCreateLevel(105);
     askSide.getOrCreateLevel(102);

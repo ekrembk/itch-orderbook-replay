@@ -1,5 +1,4 @@
 import Order from "./Order";
-import OrderType from "./OrderType";
 import Side from "./Side";
 import Level from "./Level";
 
@@ -15,7 +14,7 @@ export class OrderBook {
     }
 
     public replace(order: Order) {
-        return this.getLevel(order).replace(order);
+        this.getLevel(order).replace(order);
     }
 
     public execute(order: Order) {
@@ -23,7 +22,7 @@ export class OrderBook {
     }
 
     private getLevel(order: Order): Level {
-        const side = order.type === OrderType.Buy
+        const side = order.type === "buy"
             ? this.bidSide
             : this.askSide;
 

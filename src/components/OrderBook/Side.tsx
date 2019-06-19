@@ -2,7 +2,6 @@ import React from "react";
 import Side from "../../lib/orderbook/Side";
 import Level from "../../lib/orderbook/Level";
 import LevelComponent from "./Level";
-import OrderType from "../../lib/orderbook/OrderType";
 import "./side.css";
 
 interface Props {
@@ -15,8 +14,8 @@ const SideComponent: React.FC<Props> = ({ side }) => {
     return (
         <table className="side">
             <thead>
-                {type === OrderType.Buy && <tr><th>Orders</th><th>Lot</th><th>Bid</th></tr>}
-                {type === OrderType.Sell && <tr><th>Ask</th><th>Lot</th><th>Orders</th></tr>}
+                {type === "buy" && <tr><th>Orders</th><th>Lot</th><th>Bid</th></tr>}
+                {type === "sell" && <tr><th>Ask</th><th>Lot</th><th>Orders</th></tr>}
             </thead>
             <tbody>
                 {levels.map((level: Level) => <LevelComponent 

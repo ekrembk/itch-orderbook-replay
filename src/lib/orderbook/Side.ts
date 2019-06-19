@@ -1,14 +1,13 @@
 import Level from "./Level";
-import OrderType from "./OrderType";
 
 const SortedMap = require("collections/sorted-map");
 
 export class Side {
     levels: any;
 
-    constructor(public type: OrderType) {
+    constructor(public type: string) {
         const equals = (a: number, b: number) => a === b;
-        const compareFn = type === OrderType.Buy
+        const compareFn = type === "buy"
             ? (a: number, b: number) => b - a
             : (a: number, b: number) => a - b;
 

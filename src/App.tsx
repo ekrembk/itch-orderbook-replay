@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import OrderBook from "./lib/orderbook/OrderBook";
 import OrderBookComponent from "./components/OrderBook/OrderBook";
 import Side from "./lib/orderbook/Side";
-import OrderType from "./lib/orderbook/OrderType";
 import ITCHForm from  "./components/ITCHForm/ITCHForm";
 import Order from "./lib/orderbook/Order";
 import JsonSource from "./lib/injector/JsonSource";
 import sampleData from "./lib/injector/sample.json";
 
 const source = new JsonSource(sampleData);
-const bidSide = new Side(OrderType.Buy);
-const askSide = new Side(OrderType.Sell);
+const bidSide = new Side("buy");
+const askSide = new Side("sell");
 
 const App: React.FC = () => {
   const [book, setBook] = useState(new OrderBook(bidSide, askSide));

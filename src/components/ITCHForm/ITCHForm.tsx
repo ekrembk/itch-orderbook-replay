@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Order from "../../lib/orderbook/Order";
-import OrderType from "../../lib/orderbook/OrderType";
 
 interface Props {
     onCreate(method: string, order: Order): void;
@@ -13,11 +12,7 @@ interface FormInputProps {
 }
 
 function createOrderFromInput(id: string, type: string, price: number, quantity: number): Order {
-    const orderType = type === "buy" 
-        ? OrderType.Buy
-        : OrderType.Sell;
-
-    return new Order(id, orderType, price, quantity);
+    return { id, type, price, quantity };
 }
 
 const FormInput: React.FC<FormInputProps> = ({ label, value, setValue }) => (
