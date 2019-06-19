@@ -1,5 +1,6 @@
 [
     {"method": "add", "id": "id1", "type": "buy", "price": 100, "quantity": 10},
+    {"method": "execute", "id": "id1", "type": "buy", "price": 100, "quantity": 5},
     {"method": "add", "id": "id2", "type": "buy", "price": 101, "quantity": 10},
     {"method": "add", "id": "id3", "type": "buy", "price": 101, "quantity": 10},
     {"method": "add", "id": "id1", "type": "sell", "price": 99, "quantity": 10},
