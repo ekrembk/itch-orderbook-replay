@@ -13,18 +13,33 @@ interface JsonDataPoint {
 }
 
 export default class JsonSource implements DataSource {
-    private index = 0;
+    private index = -1;
 
     constructor(private data: JsonDataPoint[]) {}
 
-    next(): DataPoint {
-        if (this.index === this.data.length) {
+    prev(): DataPoint {
+        if (this.index <= 0) {
             throw new NoMoreDataException();
         }
 
+        this.index -= 1;
         const payload = this.data[this.index];
-        this.index += 1;
 
-        return new DataPoint(payload.method, new Order(payload.id, payload.type === "buy" ? OrderType.Buy : OrderType.Sell, payload.price, payload.quantity));
+        return new DataPoint(payload.method, this.getOrderForPayload(payload));
+    }
+    
+    next(): DataPoint {
+        if (this.index === this.data.length - 1) {
+            throw new NoMoreDataException();
+        }
+
+        this.index += 1;
+        const payload = this.data[this.index];
+
+        return new DataPoint(payload.method, this.getOrderForPayload(payload));
+    }
+
+    getOrderForPayload(payload: JsonDataPoint) {
+        return new Order(payload.id, payload.type === "buy" ? OrderType.Buy : OrderType.Sell, payload.price, payload.quantity);
     }
 }
