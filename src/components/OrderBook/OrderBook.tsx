@@ -4,12 +4,13 @@ import Side from "./Side";
 import "./orderbook.css";
 
 interface Props {
-    orderbook: OrderBook
+    orderbook: OrderBook,
+    seconds: string
 }
 
-const OrderBookComponent: React.FC<Props> = ({ orderbook }) => (
+const OrderBookComponent: React.FC<Props> = ({ orderbook, seconds }) => (
     <div className="orderbook">
-        <div className="orderbook__title">$APPL</div>
+        <div className="orderbook__title">$ASELS &lt;{seconds}&gt;</div>
         <div className="orderbook__sides">
             <div className="row no-gutters">
                 <div className="col">

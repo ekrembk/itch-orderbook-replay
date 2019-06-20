@@ -12,7 +12,7 @@ interface FormInputProps {
 }
 
 function createOrderFromInput(id: string, type: string, price: number, quantity: number): Order {
-    return { id, type, price, quantity };
+    return { seconds: "0", id, type, price, quantity };
 }
 
 const FormInput: React.FC<FormInputProps> = ({ label, value, setValue }) => (

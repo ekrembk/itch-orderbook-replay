@@ -39,6 +39,14 @@ export class Level {
         currentOrder.quantity -= executedQuantity;
         
         this.quantity -= executedQuantity;
+
+        const isFilled = currentOrder.quantity === 0;
+
+        if (isFilled) {
+            this.orders.delete(order.id);
+        }
+
+        return isFilled;
     }
 
     delete(order: Order) {

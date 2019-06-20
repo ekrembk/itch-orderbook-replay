@@ -27,6 +27,14 @@ it('handles replaces', () => {
     book.replace(updatedBuyOrder);
     expect(bidSide.getOrCreateLevel(100).quantity).toBe(updatedBuyOrder.quantity);
 
+    const buyOrderWithDifferentPrice: Order = { "id": "buy id replace different price", "type": "buy", "price": 102, "quantity": 1 };
+    const updatedBuyOrderWithDifferentPrice: Order = { "id": "buy id replace different price", "type": "buy", "price": 103, "quantity": 10 };
+
+    book.add(buyOrderWithDifferentPrice);
+    book.replace(updatedBuyOrderWithDifferentPrice);
+    expect(bidSide.getOrCreateLevel(102).quantity).toBe(0);
+    expect(bidSide.getOrCreateLevel(103).quantity).toBe(10);
+
     const sellOrder: Order = { "id": "sell id replace", "type": "sell", "price": 101, "quantity": 2 };
     const updatedSellOrder: Order = { "id": "sell id replace", "type": "sell", "price": 101, "quantity": 11 };
 
@@ -44,20 +52,22 @@ it('handles executions', () => {
     expect(bidSide.getOrCreateLevel(100).quantity).toBe(9);
 });
 
-it('handles deletes', () => {
+it('handles delete', () => {
     const buyOrder: Order = { "id": "buy id", "type": "buy", "price": 100, "quantity": 10 };
     const SecondBuyOrder: Order = { "id": "buy id 2", "type": "buy", "price": 100, "quantity": 1 };
+    const deleteOrder: Order = { "id": "buy id", "type": "buy", "price": 0, "quantity": 0 };
 
     book.add(buyOrder);
     book.add(SecondBuyOrder);
-    book.delete(buyOrder);
+    book.delete(deleteOrder);
     expect(bidSide.getOrCreateLevel(100).quantity).toBe(1);
 
     const sellOrder: Order = { "id": "sell id", "type": "sell", "price": 101, "quantity": 11 };
     const SecondSellOrder: Order = { "id": "sell id 2", "type": "sell", "price": 101, "quantity": 2 };
+    const secondDeleteOrder: Order = { "id": "sell id", "type": "sell", "price": 0, "quantity": 0 };
 
     book.add(sellOrder);
     book.add(SecondSellOrder);
-    book.delete(sellOrder);
+    book.delete(secondDeleteOrder);
     expect(askSide.getOrCreateLevel(101).quantity).toBe(2);
 });
