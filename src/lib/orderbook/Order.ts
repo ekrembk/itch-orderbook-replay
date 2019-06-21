@@ -1,5 +1,5 @@
 export default interface Order {
-    seconds: string;
+    seconds: number;
     id: string;
     type: string;
     price: number;

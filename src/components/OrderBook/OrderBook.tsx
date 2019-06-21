@@ -32,12 +32,10 @@ class OrderBookComponent extends React.Component<Props, State> {
 
     componentDidUpdate(oldProps: Props) {
         if (this.props.seconds < oldProps.seconds) {
-            console.log("From scratch");
             const orderBook = this.createOrderBook();
             this.proceedSeconds(orderBook, this.props.seconds);
             this.setState({ orderBook });
         } else if (this.props.seconds > oldProps.seconds) {
-            console.log("Continue");
             this.proceedSeconds(this.state.orderBook, this.props.seconds);
             this.setState({ "orderBook": this.state.orderBook });
         }
@@ -54,12 +52,10 @@ class OrderBookComponent extends React.Component<Props, State> {
 
     public proceedPoints(length: number) {
         const { orderBook } = this.state;
-        let sec = "0";
 
         for (let i = 0; i < length; i++) {
             try {
                 const { method, order } = this.props.source.next();
-                sec = order.seconds;
                 (orderBook as any)[method](order);
             } catch (e) {
                 if (e instanceof NoMoreDataException) {
@@ -79,7 +75,7 @@ class OrderBookComponent extends React.Component<Props, State> {
             try {
                 const { method, order } = this.props.source.next();
 
-                if (parseInt(order.seconds) > seconds) {
+                if (order.seconds > seconds) {
                     this.props.source.revert();
                     break;   
                 }
