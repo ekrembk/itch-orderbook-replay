@@ -7,6 +7,7 @@ export class Level {
     constructor(
         public price: number,
         public orders: Map<string, Order> = new Map<string, Order>(),
+        public executedQuantities: Map<string, number> = new Map<string, number>(),
     ) {}
 
     add(order: Order) {
@@ -18,29 +19,20 @@ export class Level {
         this.quantity += order.quantity;
     }
 
-    replace(order: Order) {
-        if (!this.orders.has(order.id)) {
-            throw new OrderDoesNotExistException(order.id);
-        }
-
-        const currentQuantity = this.orders.get(order.id)!.quantity;
-
-        this.orders.set(order.id, order);
-        this.quantity += order.quantity - currentQuantity;
-    }
-
     execute(order: Order) {
         if (!this.orders.has(order.id)) {
             throw new OrderDoesNotExistException(order.id);
         }
 
-        const executedQuantity = order.quantity;
-        const currentOrder = this.orders.get(order.id)!;
-        currentOrder.quantity -= executedQuantity;
-        
-        this.quantity -= executedQuantity;
+        const executedNow = order.quantity;
+        const initialOrder = this.orders.get(order.id)!;
 
-        const isFilled = currentOrder.quantity === 0;
+        const executedSoFar = this.executedQuantities.get(order.id) || 0;
+
+        this.executedQuantities.set(order.id, executedSoFar + executedNow);
+        const isFilled = initialOrder.quantity === (executedSoFar + executedNow);
+
+        this.quantity -= executedNow;
 
         if (isFilled) {
             this.orders.delete(order.id);
@@ -54,8 +46,10 @@ export class Level {
             throw new OrderDoesNotExistException(order.id);
         }
 
-        this.quantity -= this.orders.get(order.id)!.quantity;
+        const executedQuantity = this.executedQuantities.get(order.id) || 0;
+        this.quantity -= this.orders.get(order.id)!.quantity - executedQuantity;
         this.orders.delete(order.id);
+        this.executedQuantities.delete(order.id)
     }
 }
 

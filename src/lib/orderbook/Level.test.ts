@@ -1,5 +1,4 @@
 import Level from './Level';
-import Order from './Order';
 import { OrderExistsException, OrderDoesNotExistException } from './Exceptions';
 
 let level: Level;

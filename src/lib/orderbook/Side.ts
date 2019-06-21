@@ -6,8 +6,12 @@ export class Side {
     levels: any;
 
     constructor(public type: string) {
+        this.reset();
+    }
+
+    reset() {
         const equals = (a: number, b: number) => a === b;
-        const compareFn = type === "buy"
+        const compareFn = this.type === "buy"
             ? (a: number, b: number) => b - a
             : (a: number, b: number) => a - b;
 

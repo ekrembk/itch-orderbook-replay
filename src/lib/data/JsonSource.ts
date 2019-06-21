@@ -3,18 +3,16 @@ import DataPoint from "./DataPoint";
 import { NoMoreDataException } from "./Exceptions";
 
 export default class JsonSource implements DataSource {
-    private index = -1;
+    index = -1;
 
     constructor(private data: DataPoint[]) {}
 
-    prev(): DataPoint {
-        if (this.index <= 0) {
-            throw new NoMoreDataException();
-        }
+    reset(): void {
+        this.index = -1;
+    }
 
+    revert(): void {
         this.index -= 1;
-
-        return this.data[this.index];
     }
     
     next(): DataPoint {
