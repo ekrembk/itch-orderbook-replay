@@ -10,6 +10,14 @@ interface Props {
 
 const SideComponent: React.FC<Props> = ({ side }) => {
     const { type, levels } = side;
+
+    const levelProps = levels.map((level: Level) => ({
+        key: level.price,
+        size: level.orders.size,
+        quantity: level.quantity,
+        price: level.price,
+        type: type
+    })).filter((row: any) => row.quantity > 0).slice(0, 5);
     
     return (
         <div style={{ "height": 230, "overflow": "hidden" }}>
@@ -19,12 +27,7 @@ const SideComponent: React.FC<Props> = ({ side }) => {
                     {type === "sell" && <tr><th>Ask</th><th>Lot</th><th>Orders</th></tr>}
                 </thead>
                 <tbody>
-                    {levels.map((level: Level) => level.quantity > 0 && <LevelComponent 
-                        key={level.price}
-                        size={level.orders.size}
-                        quantity={level.quantity}
-                        price={level.price}
-                        type={type} />)}
+                    {levelProps.map((props: any) => <LevelComponent {...props} />)}
                 </tbody>
             </table>
         </div>

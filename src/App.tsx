@@ -31,7 +31,7 @@ const App: React.FC = () => {
   const [playing, setPlaying] = useState(false);
   const orderBookComp = useRef<OrderBookComponent>(null);
 
-  useInterval(() => setSeconds(seconds + parseFloat(speed) / 10), playing ? 100 : 9999999999);
+  useInterval(() => setSeconds(seconds + parseFloat(speed) / 10), playing ? 100 : 999999999);
 
   return (
     <div className="container">
@@ -43,14 +43,25 @@ const App: React.FC = () => {
             seconds={seconds} 
             />
 
-          <input type="checkbox" checked={playing} onChange={e => setPlaying(!playing)} />
+          <input type="checkbox" checked={playing} onChange={e => setPlaying(!playing)} /> Play
+          <input value={speed} onChange={event => setSpeed(event.target.value)} />
+
+          <br /><br />
+
+          <button onClick={() => setSeconds(seconds - 1)}>&lt; 1s</button>
+          <button onClick={() => setSeconds(seconds - 10)}>&lt; 10s</button>
+          <button onClick={() => setSeconds(seconds - 20)}>&lt; 20s</button>
+          <button onClick={() => setSeconds(seconds - 3600)}>&lt; 1h</button>
+
+          <br /><br />
 
           <button onClick={() => setSeconds(seconds + 1)}>&gt; 1s</button>
           <button onClick={() => setSeconds(seconds + 10)}>&gt; 10s</button>
           <button onClick={() => setSeconds(seconds + 20)}>&gt; 20s</button>
           <button onClick={() => setSeconds(seconds + 3600)}>&gt; 1h</button>
 
-          <input value={speed} onChange={event => setSpeed(event.target.value)} />
+          <br /><br />
+
           <input value={seconds} onChange={event => setSeconds(parseFloat(event.target.value))} />
           <button onClick={() => orderBookComp.current!.proceedPoints(37843)}>&gt; 10000</button>
           <button onClick={() => orderBookComp.current!.proceedPoints(1000)}>&gt; 1000</button>

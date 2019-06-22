@@ -1,0 +1,9 @@
+@keyframes highlightfade {
+    from { background: rgba(255, 251, 0, 0.4); }
+    to { background: transparent; }
+}
+
+.highlight {
+    animation-name: highlightfade;
+    animation-duration: 1.5s;
+}
