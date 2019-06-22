@@ -20,7 +20,7 @@ const SideComponent: React.FC<Props> = ({ side }) => {
     })).filter((row: any) => row.quantity > 0).slice(0, 5);
     
     return (
-        <div style={{ "height": 230, "overflow": "hidden" }}>
+        <div>
             <table className="side">
                 <thead>
                     {type === "buy" && <tr><th>Orders</th><th>Lot</th><th>Bid</th></tr>}
