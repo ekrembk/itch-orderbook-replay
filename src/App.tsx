@@ -2,10 +2,24 @@ import React, { useState, useRef, useEffect } from "react";
 import OrderBookComponent from "./components/OrderBook/OrderBook";
 import ExecutionsComponent from "./components/Executions/Executions";
 import JsonSource from "./lib/data/JsonSource";
-import sampleData from "./lib/data/out-2019-06-20.json";
-import sampleExecutionData from "./lib/data/out-2019-06-20-emirler.json";
 
-const source = new JsonSource(sampleData);
+const useSource = (url: string, options: object, asSource: boolean): any => {
+  const [response, setResponse] = React.useState(null as any);
+  const [error, setError] = React.useState(null as any);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(url, options);
+        const json = await res.json();
+        setResponse(asSource ? new JsonSource(json) : json);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    fetchData();
+  }, []);
+  return { response, error };
+};
 
 function useInterval(callback: CallableFunction, delay: number) {
   const savedCallback: any = useRef();
@@ -27,26 +41,33 @@ function useInterval(callback: CallableFunction, delay: number) {
   }, [delay]);
 }
 
+const date = "2019-06-24";
+const code = "THYAO";
+
 const App: React.FC = () => {
   const [seconds, setSeconds] = useState(0);
   const [speed, setSpeed] = useState("1");
   const [playing, setPlaying] = useState(false);
   const orderBookComp = useRef<OrderBookComponent>(null);
-
+  const itchSource = useSource("http://replay.fintables.com/data/" + date + "/" + code + "/itch.json", {}, true); 
+  const transactionData = useSource("http://replay.fintables.com/data/" + date + "/" + code + "/transactions.json", {}, false); 
   useInterval(() => setSeconds(seconds + parseFloat(speed) / 10), playing ? 100 : 999999999);
+
+  if (!itchSource.response || !transactionData) return <div>Loading...</div>;
 
   return (
     <div className="container" style={{ padding: 0, overflow: "hidden" }}>
       <div className="row">
         <div className="col-md-4 offset-md-4">
           <OrderBookComponent 
+            code={code}
             ref={orderBookComp}
-            source={source}
+            source={itchSource.response}
             seconds={seconds} 
             />
 
           <ExecutionsComponent
-            source={sampleExecutionData}
+            source={transactionData}
             seconds={seconds}
             />
 

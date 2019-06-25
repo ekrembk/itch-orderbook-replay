@@ -12,7 +12,7 @@ class LevelComponent extends React.PureComponent<Props> {
     animation: any;
 
     componentDidUpdate(oldProps: Props) {
-        if (this.props.quantity != oldProps.quantity) {
+        if (this.props.quantity !== oldProps.quantity) {
             this.animation = "highlight";
         } else {
             this.animation = "";

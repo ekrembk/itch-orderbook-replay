@@ -9,8 +9,9 @@ import { NoMoreDataException } from "../../lib/data/Exceptions";
 import { formatUnix } from "../../lib/time";
 
 interface Props {
-    source: DataSource,
-    seconds: number
+    source: DataSource;
+    seconds: number;
+    code: string;
 }
 
 interface State {
@@ -77,7 +78,7 @@ class OrderBookComponent extends React.Component<Props, State> {
 
                 if (order.seconds > seconds) {
                     this.props.source.revert();
-                    break;   
+                    break;
                 }
     
                 (orderBook as any)[method](order);
@@ -94,11 +95,14 @@ class OrderBookComponent extends React.Component<Props, State> {
 
     render() {
         const { orderBook } = this.state;
-        const { seconds } = this.props;
+        const { seconds, code } = this.props;
 
         return (
             <div className="orderbook">
-                <div className="orderbook__title">$ASELS &lt;{formatUnix(seconds)}&gt;</div>
+                <div className="orderbook__title">
+                    {code}
+                    &lt;{formatUnix(seconds)}&gt;
+                </div>
                 <div className="orderbook__sides">
                     <div className="row no-gutters">
                         <div className="col">
