@@ -1,0 +1,29 @@
+.controls__skip,
+.controls__play {
+    float: left;
+    display: block;
+    width: 17.5%;
+    background: red;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+.controls__play {
+    background: black;
+    color: white !important;
+    width: 30%;
+}
+
+.controls__speed a {
+    margin-top: 15px;
+    float: left;
+    display: block;
+    cursor: pointer;
+    width: 20%;
+    text-align: center;
+}
+
+.controls__speed a.checked {
+    font-weight: bold;
+}

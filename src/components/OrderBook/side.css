@@ -11,4 +11,5 @@ th {
 td {
     text-align: right;
     font-weight: bold;
+    height: 30px;
 }
