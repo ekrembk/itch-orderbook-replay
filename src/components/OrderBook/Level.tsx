@@ -21,12 +21,13 @@ class LevelComponent extends React.PureComponent<Props> {
 
     render() {
         const { size, quantity, price, type } = this.props;
+        const { animation } = this;
 
         if (type === "buy") {
-            return <tr className={this.animation}><td>{size}</td><td style={{width: 70}}>{quantity}</td><td>{(price / 100).toFixed(2)}</td></tr>
+            return <tr className={animation}><td>{size}</td><td style={{width: 70}}>{quantity}</td><td>{(price / 100).toFixed(2)}</td></tr>
         }
 
-        return <tr className={this.animation}><td>{(price / 100).toFixed(2)}</td><td style={{width: 70}}>{quantity}</td><td>{size}</td></tr>
+        return <tr className={animation}><td>{(price / 100).toFixed(2)}</td><td style={{width: 70}}>{quantity}</td><td>{size}</td></tr>
     }
 };
 

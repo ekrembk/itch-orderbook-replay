@@ -6,12 +6,10 @@ import DataSource from "../../lib/data/DataSource";
 import Side from "../../lib/orderbook/Side";
 import Level from "../../lib/orderbook/Level";
 import { NoMoreDataException } from "../../lib/data/Exceptions";
-import { formatUnix } from "../../lib/time";
 
 interface Props {
     source: DataSource;
     seconds: number;
-    code: string;
 }
 
 interface State {
@@ -32,7 +30,8 @@ class OrderBookComponent extends React.Component<Props, State> {
     }
 
     componentDidUpdate(oldProps: Props) {
-        if (this.props.seconds < oldProps.seconds) {
+        if (this.props.seconds < oldProps.seconds || this.props.source !== oldProps.source) {
+            console.log("from scratch");
             const orderBook = this.createOrderBook();
             this.proceedSeconds(orderBook, this.props.seconds);
             this.setState({ orderBook });
@@ -95,14 +94,9 @@ class OrderBookComponent extends React.Component<Props, State> {
 
     render() {
         const { orderBook } = this.state;
-        const { seconds, code } = this.props;
 
         return (
             <div className="orderbook">
-                <div className="orderbook__title">
-                    {code}
-                    &lt;{formatUnix(seconds)}&gt;
-                </div>
                 <div className="orderbook__sides">
                     <div className="row no-gutters">
                         <div className="col">
