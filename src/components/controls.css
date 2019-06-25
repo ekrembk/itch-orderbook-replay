@@ -3,16 +3,30 @@
     float: left;
     display: block;
     width: 17.5%;
-    background: red;
+    background: #555;
     text-align: center;
     line-height: 50px;
     cursor: pointer;
+    margin-top: 50px;
+    color: white !important;
+}
+
+.controls__skip:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.controls__skip:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .controls__play {
-    background: black;
-    color: white !important;
     width: 30%;
+}
+
+.controls__play--playing {
+    background: black;
 }
 
 .controls__speed a {
