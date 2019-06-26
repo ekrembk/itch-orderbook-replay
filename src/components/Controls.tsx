@@ -16,15 +16,15 @@ export const Controls: React.FC<Props> = ({ playing, setPlaying, speed, setSpeed
     return (
         <div className="controls">
 			<div>
-				<a className="controls__skip" onClick={() => setSeconds(seconds - 600)}>&lt;&lt;</a>
-				<a className="controls__skip" onClick={() => setSeconds(seconds - 10)}>&lt;</a>
-				<a className={playing ? "controls__play controls__play--playing" : "controls__play"} onClick={e => setPlaying(!playing)}><FontAwesomeIcon icon={!playing ? faPlay : faPause} /></a>
-				<a className="controls__skip" onClick={() => setSeconds(seconds + 10)}>&gt;</a>
-				<a className="controls__skip" onClick={() => setSeconds(seconds + 600)}>&gt;&gt;</a>
+				<div className="controls__skip" onClick={() => setSeconds(seconds - 600)}>&lt;&lt;</div>
+				<div className="controls__skip" onClick={() => setSeconds(seconds - 10)}>&lt;</div>
+				<div className={playing ? "controls__play controls__play--playing" : "controls__play"} onClick={e => setPlaying(!playing)}><FontAwesomeIcon icon={!playing ? faPlay : faPause} /></div>
+				<div className="controls__skip" onClick={() => setSeconds(seconds + 10)}>&gt;</div>
+				<div className="controls__skip" onClick={() => setSeconds(seconds + 600)}>&gt;&gt;</div>
 			</div>
 
             <div className="controls__speed">
-				{[1,5,10,25,100].map(rate => <a key={rate} className={rate === speed ? "checked": ""} onClick={() => setSpeed(rate)}>{rate}x</a>)}
+				{[1,5,10,25,100].map(rate => <div key={rate} className={rate === speed ? "checked": ""} onClick={() => setSpeed(rate)}>{rate}x</div>)}
             </div>
         </div>
     );
