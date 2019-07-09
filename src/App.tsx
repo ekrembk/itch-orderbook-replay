@@ -4,7 +4,7 @@ import Controls from "./components/Controls";
 import { formatUnix } from "./lib/time";
 import useInterval from "./lib/hooks/useInterval";
 
-const date = "2019-06-25";
+const date = "2019-07-04";
 
 const App: React.FC = () => {
 	const [seconds, setSeconds] = useState(0);
